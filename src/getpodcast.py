@@ -203,8 +203,8 @@ def try_download_item(newfilelength, newfilename, item, headers):
         resumeDownloadFile(newfilename, item.enclosure_url, headers)
       else:
         downloadFile(newfilename, item.enclosure_url, headers)
-    except (urllib.error.HTTPError, urllib.error.URLError):
-      message("Connection error when downloading file")
+    except (urllib.error.HTTPError, urllib.error.URLError) as err:
+      message("Connection error: {}".format(err))
       cancel_validate = True
     except socket.timeout:
       if newfilelength:
