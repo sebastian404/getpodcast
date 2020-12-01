@@ -200,9 +200,9 @@ def try_download_item(newfilelength, newfilename, item, headers):
     cancel_validate = False
     try:
       if newfilelength:
-        resumeDownloadFile(newfilename, item.enclosure_url, headers)
+        resumeDownloadFile(newfilename, urllib.parse.unquote(item.enclosure_url), headers)
       else:
-        downloadFile(newfilename, item.enclosure_url, headers)
+        downloadFile(newfilename, urllib.parse.unquote(item.enclosure_url), headers)
     except (urllib.error.HTTPError, urllib.error.URLError) as err:
       message("Connection error: {}".format(err))
       cancel_validate = True
